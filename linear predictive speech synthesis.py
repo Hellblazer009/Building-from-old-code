@@ -35,8 +35,7 @@ class Dataset(object):
         self.frameskip = round(0.015*self.samplerate)
         self.nframes = 1+int(math.ceil((len(self.signal)-self.framelength)/self.frameskip))
         self.order = 12
-        
-   # PROBLEM 4.0
+
     #
     # Chop the waveform into frames
     # self.frames[t,n] should be self.signal[t*self.frameskip+n]
@@ -51,7 +50,7 @@ class Dataset(object):
                     self.frames[i,j] = 0
         # TODO: fill the frames
 
-    # PROBLEM 4.1
+
     #
     # Find the autocorrelation function of each frame
     # self.autocor[t,self.framelength+m-1] should equal R[m],
@@ -62,7 +61,7 @@ class Dataset(object):
                 self.autocor[i,:] = np.correlate(self.frames[i,:], self.frames[i,:],"full")
         # TODO: compute autocor for each frame
         
-    # PROBLEM 4.2
+
     #
     # Calculate the LPC coefficients in each frame
     # lpc = inv(R)*gamma, where R and gamma are the autocor matrix and vector, respectively
@@ -83,7 +82,7 @@ class Dataset(object):
             
         # TODO: for each frame, compute R, compute gamma, compute lpc
             
-    # PROBLEM 4.3
+
     #
     # Create the inverse of a stable synthesis filter.
     #   First, find the LPC inverse filter polynomial: [1, -a[0], -a[1], ..., -a[order-1]].
@@ -106,7 +105,7 @@ class Dataset(object):
             
         # TODO: (1) create the inverse filter, (2) find its roots, (3) truncate magnitude, (4) find poly
             
-    # PROBLEM 4.4
+
     #
     # Calculate the pitch period in each frame:
     #   self.pitch[t] = 0 if the frame is unvoiced
@@ -126,7 +125,6 @@ class Dataset(object):
             
         # TODO: for each frame, find maximum normalized autocor in the range between minpitch and maxpitch
 
-    # PROBLEM 4.5
     #
     # Calculate the log(RMS) each frame
     # RMS[t] = root(mean(square(frame[t,:])))
@@ -139,8 +137,7 @@ class Dataset(object):
         # TODO: calculate log RMS of samples in each frame
 
 
-    # PROBLEM 4.6
-    #
+
     # Linearly interpolate logRMS, between frame boundaries,
     #  in order to find the log standard deviation of each output sample.
     #  logsigma[t,n] = logrms[t]*(frameskip-n)/frameskip + logrms[t+1]*n/frameskip
@@ -151,8 +148,7 @@ class Dataset(object):
                 self.logsigma[t,n] = (self.logrms[t]*(self.frameskip-n)/self.frameskip) + (self.logrms[t+1]*n/self.frameskip) 
         # TODO: linearly interpolate logRMS between frame boundaries
                 
-    # PROBLEM 4.7
-    #
+
     # Linearly interpolate pitch, between frame boundaries,
     # If t and t+1 voiced: samplepitch[t,n] = pitch[t]*(frameskip-n)/frameskip + pitch[t+1]*n/frameskip
     # If only t voiced: samplepitch[t,n] = pitch[t]
@@ -169,7 +165,7 @@ class Dataset(object):
                     self.samplepitch[t,n] = self.pitch[t]*(self.frameskip-n)/self.frameskip + self.pitch[t+1]*n/self.frameskip
         # TODO: linearly interpolate pitch between frame boundaries (if both nonzero)
                 
-    # PROBLEM 4.8
+
     #
     # Synthesize the output excitation signal
     # unvoiced: self.excitation[t,:]=np.random.normal
@@ -202,7 +198,7 @@ class Dataset(object):
       
             # TODO: create white noise for unvoiced frames, pulse train for voiced frames
 
-    # PROBLEM 4.9
+
     #
     # Synthesize the speech.
     #    x = np.reshape(np.exp(self.logsigma)*self.excitation,-1)
