@@ -78,8 +78,7 @@ class Dataset(object):
         self.bias2 = np.loadtxt('data/bias2.txt')
         self.dimlayer2 = self.weights2.shape[0]
 
-    # PROBLEM 6.0
-    #
+   
     # Compute layer1 hidden nodes for the validation data:
     # multiply self.validate_audio by weights1, add bias1, and
     # send the result through ReLU nonlinearity.
@@ -92,7 +91,7 @@ class Dataset(object):
         
         # TODO: compute layer1validate
 
-    # PROBLEM 6.1
+
     #
     # Compute layer1 hidden nodes for the test data:
     #   This should be exactly the same code as 6.0, but self.test_audio instead of self.validate_audio
@@ -103,7 +102,7 @@ class Dataset(object):
         self.layer1test = np.maximum(np.matmul(self.test_audio,np.transpose(self.weights1))+self.bias1, temp_mat)
         # TODO: compute layer1test
 
-    # PROBLEM 6.2
+
     #a
     # Compute layer2validate, the output layer of the neural net for the validation data:
     #    multiply layer1 by weights2, and add bias2.
@@ -114,8 +113,7 @@ class Dataset(object):
         self.layer2validate = np.matmul(self.layer1validate,np.transpose(self.weights2))+self.bias2
         # TODO: compute layer2validate
 
-    # PROBLEM 6.3
-    #
+        
     # Compute layer2test: This should be exactly the same code as 6.2, but using
     #    layer1test as input, instead of layer1validate
     # The result has dimension of dimlayer2==3, i.e., width, height0, and height1 of the lips.
@@ -128,8 +126,7 @@ class Dataset(object):
         self.layer2test = np.matmul(self.layer1test,np.transpose(self.weights2))+self.bias2
         # TODO: compute layer2test
 
-    # PROBLEM 6.4
-    #
+
     # Calculate the loss gradient w.r.t. weights2 and bias2 for the validation data.
     # The mean-squared error is the loss function,
     #    E = np.average(np.square(self.labels-self.layer2validate)).
@@ -150,8 +147,7 @@ class Dataset(object):
                 
         # TODO: compute loss gradients w.r.t. the weights/biases
 
-    # PROBLEM 6.5
-    #
+
     # Calculate the loss gradient w.r.t. weights1 and bias1 for validation data.
     # The mean-squared error is the loss function,
     #         E = np.average(np.square(self.labels-self.layer2validate)).
@@ -182,8 +178,7 @@ class Dataset(object):
       
         # TODO: compute loss gradients w.r.t. the weights/biases
 
-    # PROBLEM 6.6
-    #
+
     # Create an array self.corners that contains the augmented coordinates
     # of the corners of each triangle, in each frame.
     # self.corners[frame_id,tri_id,corner_id,0] = x-coordinate
@@ -218,8 +213,7 @@ class Dataset(object):
         #
         # TODO: for each frame, use self.reftriangles and self.points to fill self.corners
 
-    # PROBLEM 6.7
-    #
+
     # Find the cartesian2barycentric transform for each triangle, for each frame.
     # self.cartesian2barycentric[frame_id,tri_id,:,:] is the transform, T, such that
     # [lambda1,lambda2,lambda3] = [x,y,1] @ T
@@ -232,8 +226,6 @@ class Dataset(object):
                 
         # TODO: compute the cartesian2barycentric transform matrix for each frame and triangle
 
-    # PROBLEM 6.8
-    #
     # Find the Barycentric coordinates of each pixel, in each triangle, in each target image.
     # self.barycentric[frame_id,row,col,tri_id,:] =  Barycentric coordinates of pixel (row,col)
     #   as computed against triangle tri_id.  Notice that most pixels are outside of most
@@ -250,7 +242,7 @@ class Dataset(object):
                             xy_coord = np.array([col,row,1])
                             self.barycentric[frame_id,row,col,tri_id,:] = np.matmul(np.transpose(xy_coord),self.cartesian2barycentric[frame_id,tri_id,:,:])
 
-    # PROBLEM 6.9
+  
     # For each pixel (row,col) in each frame,
     # figure out if it's actually contained in any triangle.
     # If it's contained in no triangles, set pix2tri[frame_id,row,col]=-1
@@ -267,8 +259,7 @@ class Dataset(object):
                         if len(tri_ids)>0:
                             self.pix2tri[frame_id,row,col]=-1 # INCORRECT
                             
-    # PROBLEM 6.10
-    #
+
     # For each pixel (row,col) in each frame, find corresponding xy-coordinate in refimage.
     # self.refcoordinate[frame_id,row,col,0] = x-coordinate in refimage
     # self.refcoordinate[frame_id,row,col,1] = y-coordinate in refimage
@@ -297,8 +288,7 @@ class Dataset(object):
                             # to get the reference coordinates.
                             self.refcoordinate[frame_id,row,col,:] = [-1,-1] # INCORRECT
 
-    # PROBLEM 6.11
-    #
+
     # For each pixel (row,col) in each frame, calculate its target intensity in the output image.
     # You can use either piece-wise constant or piece-wise bilinear interpolation.
     #
@@ -318,7 +308,7 @@ class Dataset(object):
                         if not np.all(rc>=0) and np.all(rc < np.array([self.ncols,self.nrows])):
                             self.intensities[frame_id, row, col] = 0
 
-# No work to do here. Helper functions for calculating meshes from video features
+# Helper functions for calculating meshes from video features
 # Cleans video features corresponding to silence, smooths features, and returns corresponding meshes
 def process_vfeats(vfeats, audio, refpoints):
     # Clean video features before getting meshes
