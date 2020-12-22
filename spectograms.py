@@ -12,7 +12,7 @@ class Spectrograph(object):
         self.maxfreq = maxfreq # Maximum frequency to be shown, in Hertz
         self.dbrange = dbrange # All pixels that are dbrange below the maximum will be set to zero
 
-    # PROBLEM 1.1
+ 
     #
     # Figure out how many frames there should be
     # so that every sample of the signal appears in at least one frame,
@@ -25,7 +25,7 @@ class Spectrograph(object):
         #
         # TODO: set self.nframes to something else
 
-    # PROBLEM 1.2
+ 
     #
     # Chop the signal into overlapping frames
     # Result: self.frames is a numpy.ndarray, shape=(nframes,framelength), dtype='float64'
@@ -39,7 +39,7 @@ class Spectrograph(object):
         #
         # TODO: fill self.frames
 
-    # PROBLEM 1.3
+
     #
     # Window each frame with a Hamming window of the same length (use np.hamming)
     # Result: self.hammingwindow is a numpy.ndarray, shape=(framelength), dtype='float64'
@@ -49,7 +49,7 @@ class Spectrograph(object):
         #
         # TODO: fill self.hammingwindow
 
-    # PROBLEM 1.4
+
     #
     # Window each frame with a Hamming window of the same length (use np.hamming)
     # Result: self.wframes is a numpy.ndarray, shape=(nframes,framelength), dtype='float64'
@@ -62,7 +62,7 @@ class Spectrograph(object):
         # np.multiply(self.signal[i*self.frameskip:i*self.frameskip + self.framelength - 1], self.hammingwindow)
         # TODO: fill self.wframes
 
-    # PROBLEM 1.5
+
     #
     # Time alignment, in seconds, of the first sample of each frame, where signal[0] is at t=0.0
     # Result: self.timeaxis is a numpy.ndarray, shape=(nframes), dtype='float32'
@@ -73,7 +73,6 @@ class Spectrograph(object):
             self.timeaxis[i] = (i*self.frameskip)/self.samplerate
         # TODO: fill self.timeaxis    
 
-    # PROBLEM 1.6
     #
     #   Length of the desired DFT.
     #   You want this to be long enough so that, in numfreqs bins, you get exactly maxfreq Hertz.
@@ -85,7 +84,7 @@ class Spectrograph(object):
 
         # TODO: set self.dftlength
 
-    # PROBLEM 1.7
+
     #
     # Compute the Z values (Z=exp(-2*pi*k*n*j/dftlength) that you will use in each DFT of the STFT.
     #    result (numpy array, shape=(numfreqs,framelength), dtype='complex128')
@@ -98,7 +97,7 @@ class Spectrograph(object):
                 self.zvalues[k,n] = np.exp(-2j*np.pi*k*n/self.dftlength)
         # TODO: fill self.zvalues
 
-    # PROBLEM 1.8
+
     #
     # Short-time Fourier transform of the signal.
     #    result: self.stft is a numpy array, shape=(nframes,numfreqs), dtype='complex128'
@@ -112,7 +111,7 @@ class Spectrograph(object):
         #
         # TODO: fill self.stft
 
-    # PROBLEM 1.9
+
     #
     # Find the level (in decibels) of the STFT in each bin.
     #    Normalize so that the maximum level is 0dB.
@@ -134,7 +133,6 @@ class Spectrograph(object):
                
         # TODO: fill self.levels
 
-    # PROBLEM 1.10
     #
     # Convert the level-spectrogram into a spectrogram image:
     #    Add 60dB (so the range is from 0 to 60dB), scale by 255/60 (so the max value is 255),
