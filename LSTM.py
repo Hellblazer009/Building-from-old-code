@@ -31,8 +31,7 @@ class Dataset(object):
         self.label=np.genfromtxt('data/label_train_30000.txt',dtype=np.int16)
         self.nsamps=len(self.observation)
 
-    # PROBLEM 7.0
-    #
+    
     # Create the model:
     #   If epoch==-1, create knowledge-based weights that will perform the task perfectly.
     #   If epoch==0, create pseudo-random initial weights (with random.seed(0))
@@ -92,7 +91,7 @@ class Dataset(object):
             return 1/(1+np.exp(-x))
         return np.maximum(0,np.minimum(1,x))
 
-    # PROBLEM 7.1
+ 
     #
     # Calculate the values of the activations for every nonlinearity, in every sample
     # self.activation[t,0] == c[t], activation of the cell at t'th sample
@@ -144,7 +143,7 @@ class Dataset(object):
     
     
     
-    # PROBLEM 7.2
+  
     #
     # Calculate derivative of the activation functions at each time step.
     # self.deriv[t,0] == dg(z)/dz evaluated at z=wc*x[t]+uc*h[t-1]+bc -- cell derivative
@@ -169,7 +168,7 @@ class Dataset(object):
 
         # TODO: calculate the derivative
 
-    # PROBLEM 7.3
+  
     #
     # Calculate the partial derivative of the error with respect to h[t],
     # Define E = (1/2)*np.average(np.square(self.activation[:,4]-self.label)).  Then
@@ -181,7 +180,7 @@ class Dataset(object):
             self.partial[t] = (1/self.nsamps)*(self.activation[t,4]-self.label[t])
         # TODO: calculate the partial deriviate
 
-    # PROBLEM 7.4
+  
     #
     # Back-prop through time.
     # Accumulate dE/dexcitation backward through time, via links from h[n+1] and c[n+1].
@@ -214,8 +213,7 @@ class Dataset(object):
         
     # TODO: calculate the backprop through time
 
-    # PROBLEM 7.5
-    #
+ 
     # Calculate the gradient of error with respect to each network weight:
     # self.gradient[0,:] == d(error)/d(bias,inputweight,historyweight) for the cell
     # self.gradient[1,:] == d(error)/d(bias,inputweight,historyweight) for the input gate
@@ -260,8 +258,7 @@ class Dataset(object):
             
         # TODO: set the gradient
 
-    # PROBLEM 7.6
-    #
+  
     # Update the model weights using one epoch (one step) of gradient descent,
     #   with a learning rate (eta) equal to self.learning_rate.
     # self.update[0,:] == new (bias,inputweight,historyweight) for the cell
