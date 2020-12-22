@@ -118,7 +118,7 @@ class Dataset(object):
         #
         return(mu,var,A,types)
 
-    # PROBLEM 4.0
+    
     #
     # Calculate the Gaussian surprisal in each frame.
     # We use "surprisal" (negative log probability), instead of probability, because it
@@ -137,7 +137,7 @@ class Dataset(object):
                     zsquared = 0.5*(temp + np.log(2*np.pi*var[i,:]))
                     self.surprisal[t,i] = sum(zsquared) 
 
-    # PROBLEM 4.1
+    
     #
     # Calculate the scaled alpha (alphahat):
     # alphahat[t,i] = Pr(tok[frame t]=i|x[0],...,x[t-1],x[t]),
@@ -158,7 +158,7 @@ class Dataset(object):
                 # TODO: normalize alphahat[t,:] so that it adds up to one
                 self.alphahat[t,:] /= sum(self.alphahat[t,:]) # INCORRECT!
                 
-    # PROBLEM 4.2
+ 
     #
     # Calculate the scaled beta:
     # betahat[t,i] = g[t] Pr(x[t+1],...,x[T-1]|tok[t]=i), where g[t] ensures summation to 1
@@ -176,7 +176,7 @@ class Dataset(object):
                 # TODO: normalize betahat[t,:] so that it adds up to one
                 self.betahat[t,:] /= sum(self.betahat[t,:])
         
-    # PROBLEM 4.3
+ 
     #
     # Calculate the gamma probability, from alphahat and betahat
     def set_gamma(self):
@@ -188,7 +188,7 @@ class Dataset(object):
                 # TODO: normalize gamma[t,:] so that it adds up to one
                 self.gamma[t,:] /= sum(self.gamma[t,:])
                                            
-    # PROBLEM 4.4
+   
     #
     # Calculate xi, from alphahat, betahat, tpm, and likelihood
     def set_xi(self):
@@ -203,7 +203,7 @@ class Dataset(object):
                 # TODO: normalize so that sum over all (i,j) of xi[t,i,j] is 1
                 self.xi[t,:,:] /= sum(sum(self.xi[t,:,:]))
                         
-    # PROBLEM 4.5
+   
     #
     # Re-estimate mu using gamma and mfcc
     def set_mu(self):
@@ -222,7 +222,7 @@ class Dataset(object):
             # TODO: re-estimate mu[i,:] as numerator[i,:] / denominator[i]
             self.mu[i,:] = numerator[i,:]/denominator[i]# INCORRECT!
 
-    # PROBLEM 4.6
+    
     #
     # Re-estimate var using gamma and mfcc
     def set_var(self):
@@ -243,7 +243,7 @@ class Dataset(object):
             # For numerical stability: make sure self.var is at least 1e-4
             self.var[i,:] = np.maximum(1e-4, self.var[i,:])
 
-    # PROBLEM 4.7
+   
     #
     # Re-estimate transition probabilities:
     # Set numerator[i,j] = sum_t of xi[t,i,j]
@@ -263,7 +263,7 @@ class Dataset(object):
             # TODO: tpm[i,:] = numerator[i,:], normalized so that it sums to one
             self.tpm[i,:] = numerator[i,:]/sum(numerator[i,:]) # INCORRECT!
 
-    # PROBLEM 4.8
+   
     #
     # Actually, you don't have to do anything for this.
     # This code just saves the trained model in a JSON file
