@@ -40,7 +40,7 @@ class KNN(object):
     
     #    D = 1 if k1==0, otherwise D = sqrt(2)
         
-    # PROBLEM 2.0
+ 
     #
     # set_vectors - reshape self.data into self.vectors.
     #   Vector should scan the image in row-major ('C') order, i.e.,
@@ -57,7 +57,7 @@ class KNN(object):
         #
         # TODO: fill self.vectors
 
-    # PROBLEM 2.1
+
     #
     # set_mean - find the global mean image vector
     def set_mean(self):
@@ -67,7 +67,7 @@ class KNN(object):
         
         # TODO: fill self.mean
 
-    # PROBLEM 2.2
+
     #
     # set_centered - compute the zero-centered dataset, i.e., subtract the mean from each vector.
     def set_centered(self):
@@ -76,8 +76,7 @@ class KNN(object):
             self.centered[i,:] = self.vectors[i,:] - self.mean
             
         # TODO: fill self.centered
-            
-    # PROBLEM 2.3
+ 
     #
     # set_transform - compute the feature transform matrix (DCT or PCA)
     #  If transformtype=='dct':
@@ -127,7 +126,6 @@ class KNN(object):
                 else:
                     self.transform[i,:] = -1*vh[i,:]
 
-    # PROBLEM 2.4
     #
     # set_features - transform the centered dataset to generate feature vectors.
     def set_features(self):
@@ -136,7 +134,7 @@ class KNN(object):
         self.features = np.matmul(self.centered, transformation)
         # TODO: fill self.features
 
-    # PROBLEM 2.5
+
     #
     # set_energyspectrum: the fraction of total centered-dataset variance explained, cumulatively,
     #   by all feature dimensions up to dimension k, for 0<=k<nfeats.
@@ -150,7 +148,7 @@ class KNN(object):
         #
         # TODO: calculate total dataset variances, then set self.energyspectrum
     
-    # PROBLEM 2.6
+
     #
     # set_neighbors - indices of the K nearest neighbors of each feature vector (not including itself).
     #    return: a matrix of datum indices, i.e.,
@@ -169,8 +167,7 @@ class KNN(object):
         
         # TODO: fill self.neighbors
             
-    # PROBLEM 2.7
-    #
+
     # set_hypotheses - K-nearest-neighbors vote, to choose a hypothesis person label for each datum.
     #   If K>1, then check for ties!  If the vote is a tie, then back off to 1NN among the tied options.
     #   In other words, among the tied options, choose the one that has an image vector closest to
@@ -205,8 +202,7 @@ class KNN(object):
         
         # TODO: fill self.hypotheses
 
-    # PROBLEM 2.8
-    #
+
     # set_confusion - compute the confusion matrix
     #   confusion[r,h] = number of images of person r that were classified as person h    
     def set_confusion(self):
@@ -216,8 +212,7 @@ class KNN(object):
          
         # TODO: fill self.confusion
                 
-    # PROBLEM 2.9
-    #
+
     # set_metrics - set self.metrics = [ accuracy, recall, precision ]
     #   recall is the average, across all people, of the recall rate for that person
     #   precision is the average, across all people, of the precision rate for that person
@@ -252,8 +247,6 @@ class KNN(object):
         # TODO: fill self.metrics
 
     # do_all_steps:
-    #   This function is given, here, in case you want to do all of the steps all at once.
-    #   To do that, you can type
     #   knn=KNN('data',36,'dct',4)
     #   knn.do_all_steps()
     #
