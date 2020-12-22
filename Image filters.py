@@ -45,7 +45,7 @@ class Dataset(object):
                 self.labels[datum] = label
                 self.data[:,:,:,datum] = np.asarray(Image.open(filename))
         
-    # PROBLEM 3.0
+    
     #
     # Convert image into Y-Pb-Pr color space, using the ITU-R BT.601 conversion
     #   [Y;Pb;Pr]=[0.299,0.587,0.114;-0.168736,-0.331264,0.5;0.5,-0.418688,-0.081312]*[R;G;B].
@@ -61,7 +61,7 @@ class Dataset(object):
         #
         # TODO: convert each RGB image to YPbPr
 
-    # PROBLEM 3.1
+   
     #
     # Filter each row of ypbpr with two different filters.
     # The first filter is the difference: [1,0,-1]
@@ -85,7 +85,7 @@ class Dataset(object):
             
         # TODO: calculate the six output planes (diffY,diffPr,diffPb,aveY,avePr,avePb).
                     
-    # PROBLEM 3.2
+    
     #
     # Calculate the (Gx,Gy) gradients of the YPbPr images using Sobel mask.
     # This is done by filtering the columns of self.rowconv.
@@ -106,7 +106,7 @@ class Dataset(object):
                         else:
                             self.gradient[j-1,k,l,i] = self.rowconv[j+1,k,l,i] - self.rowconv[j-1,k,l,i]
 
-    # PROBLEM 3.3
+    
     #
     # Create a matched filter, for each class, by averaging the YPbPr images of that class,
     # removing the first two rows, last two rows, first two columns, and last two columns,
@@ -128,7 +128,7 @@ class Dataset(object):
 
         # TODO: for each class, average the YPbPr images, fliplr, and flipud
 
-    # PROBLEM 3.4
+    
     #
     # self.matches[:,:,c,d,z] is the result of filtering self.ypbpr[:,:,c,d]
     #   with self.matchedfilters[:,:,c,z].  Since we're not using scipy, you'll have to
@@ -149,7 +149,7 @@ class Dataset(object):
                     self.matches[:,:,l,i,j] = temp_filtered_image
         # TODO: compute 2D convolution of each matched filter with each YPbPr image
     
-    # PROBLEM 3.5 
+   
     #
     # Create a feature vector from each image, showing three image features that
     # are known to each be useful for some problems.
@@ -166,7 +166,7 @@ class Dataset(object):
         #
         # TODO: Calculate color feature, gradient feature, and matched filter feature for each image
 
-    # PROBLEM 3.6
+  
     #
     # self.accuracyspectrum[d,f] = training corpus accuracy of the following classifier:
     #   if self.features[k,f] >= self.features[d,f], then call datum k class 1, else call it class 0.
@@ -195,7 +195,7 @@ class Dataset(object):
         #
         # TODO: Calculate the accuracy of every possible single-feature classifier
 
-    # PROBLEM 3.7
+    
     #
     # self.bestclassifier specifies the best classifier for each feature
     # self.bestclassifier[f,0] specifies the best threshold for feature f
